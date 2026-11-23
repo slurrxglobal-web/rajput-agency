@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>RAJPUT AGENCY | Admin Control Panel</title>
+  
+  <!-- Greek God Statue Favicon as requested -->
+  <link rel="icon" type="image/jpeg" href="assets/sculpture_god.jpg">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="admin.css?v=2.4">
+</head>
+<body>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+
+  <!-- Admin Login Modal -->
+  <div class="login-modal-backdrop" id="loginModal">
+    <div class="login-modal-card">
+      <div class="login-avatar-wrapper">
+        <img src="assets/admin_logo.jpg" alt="Rajput Agency Admin" class="login-admin-img" id="loginAvatarImg">
+        <span class="avatar-ring"></span>
+      </div>
+      <h2>RAJPUT AGENCY</h2>
+      <p class="login-sub">Admin Control Center</p>
+      
+      <form id="adminLoginForm">
+        <div class="input-box">
+          <label for="loginUsername">Admin Username</label>
+          <div class="input-wrap">
+            <i class="fas fa-user"></i>
+            <input type="text" id="loginUsername" placeholder="Enter Admin Username" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="input-box">
+          <label for="loginPassword">Admin Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Enter Admin Password" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <div class="login-error-msg" id="loginError">Invalid Username or Password!</div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard Container -->
+  <div class="admin-container" id="adminDashboard" style="display: none;">
+    
+    <!-- Top Navigation Header -->
+    <header class="admin-header">
+      <div class="header-left">
+        <div class="admin-profile-pill">
+          <img src="assets/admin_logo.jpg" alt="Admin" class="header-admin-avatar" id="headerAvatarImg">
+          <div class="header-user-meta">
+            <h3 id="topAdminName">Rajput</h3>
+            <span class="admin-role-badge">SUPER ADMIN • OWNER</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <a href="index.html" target="_blank" class="btn btn-ghost btn-sm" title="View Website">
+          <i class="fas fa-globe"></i> <span>View Site</span>
+        </a>
+        <button class="btn btn-primary btn-sm" id="btnSaveAllTop">
+          <i class="fas fa-save"></i> <span>Save</span>
+        </button>
+        <button class="btn btn-outline-danger btn-sm" id="btnLogout" title="Logout">
+          <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Save Notification Toast -->
+    <div class="toast-notice" id="saveToast">
+      <i class="fas fa-check-circle"></i>
+      <span>Changes successfully saved & live on website!</span>
+    </div>
+
+    <!-- Main Settings Grid -->
+    <div class="admin-grid">
+
+      <!-- Admin Profile Card -->
+      <div class="admin-card profile-showcase-card">
+        <div class="showcase-content">
+          <div class="showcase-avatar-box">
+            <img src="assets/admin_logo.jpg" alt="Admin Badge" class="showcase-img" id="showcaseAvatarImg">
+            <div class="showcase-glow"></div>
+            <label for="adminPhotoInput" class="avatar-edit-overlay" title="Change Admin Photo">
+              <i class="fas fa-camera"></i>
+            </label>
+            <input type="file" id="adminPhotoInput" accept="image/*" style="display: none;">
+          </div>
+          <div class="showcase-details">
+            <div class="showcase-meta-top">
+              <span class="badge-pill">SUPER ADMIN</span>
+              <span class="system-status">
+                <span class="status-dot"></span> 24/7 Live
+              </span>
+            </div>
+            <h2 id="showcaseAdminName">Rajput</h2>
+            <p class="tagline-text">Head of Growth • RAJPUT AGENCY</p>
+            <div class="showcase-photo-actions">
+              <button type="button" class="btn btn-outline-danger btn-xs" id="btnUploadPhoto">
+                <i class="fas fa-camera"></i> Change Photo
+              </button>
+              <button type="button" class="btn btn-ghost btn-xs" id="btnResetPhoto" style="display: none;" title="Reset to default photo">
+                <i class="fas fa-undo"></i> Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 1: WhatsApp & Telegram Direct Settings -->
+      <div class="admin-card">
+        <div class="card-title-row">
+          <div class="title-with-icon">
+            <i class="fab fa-whatsapp text-green"></i>
+            <div>
+              <h3>WhatsApp & Telegram Settings</h3>
+              <p>Site par WhatsApp number aur Telegram channel update karne ke liye</p>
+            </div>
+          </div>
+          <span class="status-pill status-active">Direct Connect</span>
+        </div>
+
+        <div class="form-fields">
+          <div class="form-group">
+            <label for="cfgWaPhone">WhatsApp Business Number (With Country Code):</label>
+            <div class="input-wrap">
+              <i class="fab fa-whatsapp"></i>
+              <input type="text" id="cfgWaPhone" placeholder="e.g. 917668638453">
+            </div>
+            <small>Bina '+' ya space ke daalein. Example: <code>917668638453</code></small>
+          </div>
+
+          <div class="form-group">
+            <label for="cfgWaMessage">Default WhatsApp Welcome Message:</label>
+            <textarea id="cfgWaMessage" rows="2" placeholder="Hi Rajput Agency, I want to scale my business with paid ads!"></textarea>
+            <small>Client ke chat open karte hi ye text pre-fill ho jayega.</small>
+          </div>
+
+          <div class="form-divider"></div>
+
+          <div class="form-group">
+            <label for="cfgTgLink">Telegram Channel / Group Link:</label>
+            <div class="input-wrap">
+              <i class="fab fa-telegram text-blue"></i>
+              <input type="text" id="cfgTgLink" placeholder="e.g. https://t.me/RajputAdsAgency ya RajputAgency">
+            </div>
+            <small>Apna Telegram link ya channel username yahan paste karein.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="cfgTgHandle">Telegram Display Text / Handle:</label>
+            <input type="text" id="cfgTgHandle" placeholder="@RajputAgency">
+            <small>Website par dikhne wala handle text (e.g. <code>@RajputAgency</code>).</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Basic Agency Information -->
+      <div class="admin-card">
+        <div class="card-title-row">
+          <div class="title-with-icon">
+            <i class="fas fa-building text-red"></i>
+            <div>
+              <h3>Agency Basic Info</h3>
+              <p>Website ke footer aur contact section ka info</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-fields">
+          <div class="form-group">
+            <label for="cfgAgencyName">Agency Name:</label>
+            <input type="text" id="cfgAgencyName" placeholder="RAJPUT AGENCY">
+          </div>
+
+          <div class="form-group">
+            <label for="cfgOfficialEmail">Official Business Email:</label>
+            <input type="email" id="cfgOfficialEmail" placeholder="bussiness@rajputagency.online">
+          </div>
+
+          <div class="form-group">
+            <label for="cfgCallingPhone">Display Phone / WhatsApp Support:</label>
+            <input type="text" id="cfgCallingPhone" placeholder="+62 851-8383-7854">
+          </div>
+
+          <div class="form-group">
+            <label for="cfgOfficeAddress">Office Location / Address:</label>
+            <input type="text" id="cfgOfficeAddress" placeholder="All India">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Change Admin Credentials -->
+      <div class="admin-card">
+        <div class="card-title-row">
+          <div class="title-with-icon">
+            <i class="fas fa-key text-red"></i>
+            <div>
+              <h3>Admin Login & Password</h3>
+              <p>Admin panel ka username, password aur display name change karein</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-fields">
+          <div class="form-group">
+            <label for="cfgAdminName">Admin Display Name:</label>
+            <input type="text" id="cfgAdminName" placeholder="Rajput">
+          </div>
+
+          <div class="form-group">
+            <label>Admin Profile Photo (Changes on Website & Admin):</label>
+            <div style="display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline-danger btn-sm" id="btnUploadPhotoAlt">
+                <i class="fas fa-upload"></i> Upload from Device
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnResetPhotoAlt">
+                <i class="fas fa-undo"></i> Reset to Default
+              </button>
+            </div>
+            <input type="text" id="cfgAdminPhotoUrl" placeholder="Or paste Image URL (https://...)">
+            <small>Aap file upload kar sakte hain ya image link paste kar sakte hain. Dono jagah live update hoga.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="cfgAdminUsername">New Admin Username:</label>
+            <input type="text" id="cfgAdminUsername" placeholder="e.g. admin ya rajput">
+          </div>
+
+          <div class="form-group">
+            <label for="cfgAdminPassword">New Admin Password:</label>
+            <input type="password" id="cfgAdminPassword" placeholder="Enter new password">
+            <small>Password ko kisi safe jagah note karke rakhein.</small>
+          </div>
+
+          <button type="button" class="btn btn-outline-red" id="btnUpdateCredentials">
+            <i class="fas fa-shield-alt"></i> Update Credentials
+          </button>
+          <span id="credUpdateMsg" class="feedback-msg"></span>
+        </div>
+      </div>
+
+      <!-- Card 4: Recent Client Leads -->
+      <div class="admin-card full-width-card">
+        <div class="card-title-row">
+          <div class="title-with-icon">
+            <i class="fas fa-users text-red"></i>
+            <div>
+              <h3>Recent Client Leads & Inquiries</h3>
+              <p>Website par audit form bharne wale clients ki list</p>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-ghost btn-sm" id="btnExportCsv">
+              <i class="fas fa-download"></i> Export CSV
+            </button>
+            <button class="btn btn-outline-danger btn-sm" id="btnClearLeads">
+              <i class="fas fa-trash-alt"></i> Clear Leads
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Client Name</th>
+                <th>Email</th>
+                <th>WhatsApp / Phone</th>
+                <th>Services</th>
+                <th>Monthly Budget</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-leads" id="emptyLeadsState">
+          <i class="fas fa-inbox"></i>
+          <p>Abhi tak koi naya inquiry nahi aaya hai. Website par form submit hone par yahan show hoga.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Floating Save Button -->
+    <div class="floating-save-bar">
+      <span>Changes complete hone par save karein:</span>
+      <button class="btn btn-primary" id="btnSaveAllBottom">
+        <i class="fas fa-save"></i> Save All Changes Now
+      </button>
+    </div>
+
+  </div>
+
+  <script src="admin.js?v=2.4"></script>
+</body>
+</html>
